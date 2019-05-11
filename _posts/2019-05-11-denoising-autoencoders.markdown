@@ -42,7 +42,7 @@ The inputs and outputs to this DAE were 32x32 so these results are pretty good f
 
 # Source code 
 * [DAE in Tensorflow 2.0](https://github.com/alexbooth/DAE-Tensorflow-2.0)  
-* [This post](https://www.google.com)
+* [This blog](https://github.com/alexbooth/alexbooth.github.io)
 
 
 # References
