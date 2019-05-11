@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hi, I'm Alex. I'm a software engineer with an affinity for AI, ML, and computer vision. I studied at the University of British Columbia and am currently working for Boeing in Mountain View, California.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I will be making occasional posts in this blog about topics I find interesting within the field of AI. As a visual learner I hope to enable others like myself with the ability to see, first-hand, what modern AI is capable of. 
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Most of my posts will include an in-browser demo using TensorflowJS and a relevant implementation in Python on my GitHub. 
+
+__If live demos do not load, please try with Chrome or Firefox and update your browser to the latest version.__
 
 
-[jekyll-organization]: https://github.com/jekyll
