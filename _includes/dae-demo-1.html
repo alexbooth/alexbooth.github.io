@@ -91,8 +91,8 @@ input[type=range]:focus::-ms-fill-upper {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    width: 300px;
-    height: 300px;
+    width: 40.8%;
+    height: 40.8%;
     border: 1px solid #000000;
 }
 
@@ -100,8 +100,8 @@ input[type=range]:focus::-ms-fill-upper {
     padding: 0;
     margin: auto;
     display: block;
-    width: 250px;
-    height: 250px;
+    width: 34%;
+    height: 34%;
     border: 1px solid #000000;
 }
 
@@ -109,20 +109,16 @@ input[type=range]:focus::-ms-fill-upper {
     padding: 0;
     margin: auto;
     display: block;
-    width: 250px;
-    height: 250px;
+    width: 34%;
+    height: 34%;
     border: 1px solid #000000;
 }
 </style>
 
 <div>
     <div style="display: flex;">
-        <div style="width:250px; height:250px; display:inline; margin: auto; padding: 0;">
-            <canvas id="myCanvas1"></canvas> 
-        </div>
-        <div style="width:250px; height:250px; display:inline; margin: auto; padding: 0;">
-            <canvas id="myCanvas2"></canvas> 
-        </div>
+        <canvas id="myCanvas1"></canvas> 
+        <canvas id="myCanvas2"></canvas> 
     </div>
     <button id="randBtn" style="display: block; margin: 15px auto 0 auto;">Randomize input noise</button>
 </div>
@@ -160,7 +156,7 @@ var std;
 var mean;
 
 async function load_model() {
-    model = await tf.loadLayersModel("../../../../../assets/models/DAE-z2-js/model.json");
+    model = await tf.loadLayersModel("{{ '/assets/models/DAE-z2-js/model.json' | relative_url }}");
 
     z1DecS.value = Math.random()*2-1;
     z1DecV.innerHTML = z1DecS.value;
@@ -201,8 +197,8 @@ function unstandardize_img(mean, std, im) {
 }
 
 async function load_model2() {
-    model2 = await tf.loadLayersModel("../../../../../assets/models/DAE-full-js/model.json");
-    dae_predict(modelIn);
+    model2 = await tf.loadLayersModel("{{ '/assets/models/DAE-full-js/model.json' | relative_url }}");
+    get_new_noisey_input();
 }
 
 function add_noise(im) {
@@ -220,6 +216,7 @@ function get_new_noisey_input() {
     var out = modelIn.mul(std).add(mean);
     var norm = out.sub(out.min()).div(out.max().sub(out.min()));
     tf.browser.toPixels(norm.clipByValue(0, 1).reshape([32,32]), canvas1);
+    dae_predict(modelIn);
 }
 
 window.onload = function () { 
@@ -229,11 +226,11 @@ window.onload = function () {
 
     // randomized noise prediction
     baseImg = new Image(32, 32);
-    baseImg.src = "../../../../../assets/images/DAE/0.png";
+    baseImg.src = "{{ '/assets/images/DAE/0.png' | relative_url }}";
 
     canvas1.src = baseImg.src;
     baseImg.onload = () => {
-        get_new_noisey_input();
+        load_model();
         load_model2();
     }
 
@@ -255,11 +252,8 @@ window.onload = function () {
         dae_z2_predict(z1DecS.value, this.value);
     }
 
-    load_model();
-
     document.getElementById("randBtn").onclick = function() {
         get_new_noisey_input();
-        dae_predict(modelIn);
     }
 }
 </script>

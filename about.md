@@ -10,6 +10,6 @@ I will be making occasional posts in this blog about topics I find interesting w
 
 Most of my posts will include an in-browser demo using TensorflowJS and a relevant implementation in Python on my GitHub. 
 
-__If live demos do not load, please try with Chrome or Firefox and update your browser to the latest version.__
+__If live demos do not load, please try with Chrome or Firefox and update your browser to the latest version. Demos may not work on mobile.__
 
 

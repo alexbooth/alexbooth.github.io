@@ -6,7 +6,7 @@ categories: jekyll update
 author: Alexander Booth
 ---
 
-<p align="center"><img src="../../../../../assets/images/DAE/autoencoder.png" height="300"></p>
+<p align="center"><img src="{{ '/assets/images/DAE/autoencoder.png' | relative_url }}" width="54%"></p>
 
 <!--Autoencoders take a high dimensional input which is passed through a bottleneck in an attempt to obtain a meaningful latent representation of the data.
 The latent representation is then passed into the decoder, which tries to reconstruct the original input.
@@ -29,7 +29,7 @@ While $$C$$ is arbitrary, this post will consider Gaussian noise:
 
 $$C(x) = x + \epsilon \text{, where } \epsilon \sim \mathcal{N}(0, \, I)$$
 
-<p align="center"><img src="../../../../../assets/images/DAE/corrupt.gif"></p>
+<p align="center"><img src="{{ '/assets/images/DAE/corrupt.gif' | relative_url }}" width="54%"></p>
 
 Aside from the obvious denoising capabilities of the DAE, training using the DAE loss offers various other benefits. 
 Random noise forces the encoder to learn a robust mapping from input to the latent space.
@@ -48,4 +48,4 @@ The inputs and outputs to this DAE were 32x32 so these results are pretty good f
 # References
 [1] MNIST dataset <http://yann.lecun.com/exdb/mnist/>  
 [2] Pascal Vincent, et al. [Extracting and Composing Robust Features with Denoising Autoencoders](http://www.cs.toronto.edu/~larocheh/publications/icml-2008-denoising-autoencoders.pdf) ICML, 2008.  
-[3] “14.5 Denoising Autoencoders.” Deep Learning, by Ian Goodfellow, Yoshua Bengio, Aaron Courville The MIT Press, 2017, pp. 501–502.
+[3] “14.5 Denoising Autoencoders.” Deep Learning, by Ian Goodfellow, Yoshua Bengio, and Aaron Courville, The MIT Press, 2017, pp. 501–502.
