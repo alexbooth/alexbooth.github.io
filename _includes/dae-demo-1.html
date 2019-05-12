@@ -155,7 +155,8 @@ var modelIn;
 var std;
 var mean;
 
-async function load_model() {
+async function load_models() {
+    model2 = await tf.loadLayersModel("{{ '/assets/models/DAE-full-js/model.json' | relative_url }}");
     model = await tf.loadLayersModel("{{ '/assets/models/DAE-z2-js/model.json' | relative_url }}");
 
     z1DecS.value = Math.random()*2-1;
@@ -164,7 +165,22 @@ async function load_model() {
     z2DecS.value = Math.random()*2-1;
     z2DecV.innerHTML = z2DecS.value;
 
+    get_new_noisey_input();
     dae_z2_predict(z1DecS.value, z2DecS.value);
+}
+
+function get_new_noisey_input() {
+    var inputImg = tf.browser.fromPixels(baseImg).toFloat();
+    var greyImg = grayscale_img(inputImg);
+    var standOut = standardize_img(greyImg);
+    mean = standOut[0];
+    std = standOut[1];
+    modelIn = standOut[2];
+    modelIn = add_noise(modelIn);
+    var out = modelIn.mul(std).add(mean);
+    var norm = normalize(out);
+    tf.browser.toPixels(norm.reshape([32,32]), canvas1);
+    dae_predict(modelIn);
 }
 
 function dae_z2_predict(z1, z2) {
@@ -174,6 +190,8 @@ function dae_z2_predict(z1, z2) {
     pred = tf.mul(tf.add(pred.tanh(), 1), 0.5).reshape([32,32]);
     tf.browser.toPixels(pred, canvasDec);
 }
+
+
 
 /*  
     Normalize tensor such that values are in the range [0, 1] 
@@ -187,6 +205,8 @@ function normalize(im) {
                 .div(tmp.max().sub(tmp.min()).add(0.0000001))
                 .clipByValue(0, 1);
 }
+
+
 
 /*  
     Predict using model2 and show output on canvas2 
@@ -202,9 +222,13 @@ function dae_predict(im) {
     tf.browser.toPixels(norm.reshape([32,32]), canvas2);
 }
 
+
+
 function grayscale_img(im) {
     return im.mean(2);
 }
+
+
 
 /*  
     Standardizes tensor such that mean=0 and std=1 
@@ -227,10 +251,7 @@ function standardize_img(im) {
     return [mean, std, standardized_img];
 }
 
-async function load_model2() {
-    model2 = await tf.loadLayersModel("{{ '/assets/models/DAE-full-js/model.json' | relative_url }}");
-    get_new_noisey_input();
-}
+
 
 /*
     Adds unit Gaussian noise to each element of a tensor
@@ -244,19 +265,7 @@ function add_noise(im) {
     return im.clone().add(tf.randomNormal(im.shape));
 }
 
-function get_new_noisey_input() {
-    var inputImg = tf.browser.fromPixels(baseImg).toFloat();
-    var greyImg = grayscale_img(inputImg);
-    var standOut = standardize_img(greyImg);
-    mean = standOut[0];
-    std = standOut[1];
-    modelIn = standOut[2];
-    modelIn = add_noise(modelIn);
-    var out = modelIn.mul(std).add(mean);
-    var norm = normalize(out);
-    tf.browser.toPixels(norm.reshape([32,32]), canvas1);
-    dae_predict(modelIn);
-}
+
 
 window.onload = function () { 
     canvasDec  = document.getElementById("canvasDec");
@@ -267,10 +276,13 @@ window.onload = function () {
     baseImg = new Image(32, 32);
     baseImg.src = "{{ '/assets/images/DAE/0.png' | relative_url }}";
     canvas1.src = baseImg.src;
-
     baseImg.onload = () => {
-        load_model();
-        load_model2();
+        load_models();
+    }
+
+    // randomize noise button
+    document.getElementById("randBtn").onclick = function() {
+        get_new_noisey_input();
     }
 
     // z1 slider
@@ -289,10 +301,6 @@ window.onload = function () {
     z2DecS.oninput = function() {
         z2DecV.innerHTML = this.value;
         dae_z2_predict(z1DecS.value, this.value);
-    }
-
-    document.getElementById("randBtn").onclick = function() {
-        get_new_noisey_input();
     }
 }
 </script>

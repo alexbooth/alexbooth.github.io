@@ -8,10 +8,6 @@ author: Alexander Booth
 
 <p align="center"><img src="{{ '/assets/images/DAE/autoencoder.png' | relative_url }}" width="54%"></p>
 
-<!--Autoencoders take a high dimensional input which is passed through a bottleneck in an attempt to obtain a meaningful latent representation of the data.
-The latent representation is then passed into the decoder, which tries to reconstruct the original input.
-A useful encoder has input $$x \in \mathbb{R}^d $$ and output $$ z_{latent} \in \mathbb{R}^k$$ where $$d \gg k$$. -->
-
 The denoising autoencoder (DAE) is a natural extension of the traditional autoencoder. 
 In fact, an autoencoder can be made into a DAE with a simple modification of the loss function.
 
