@@ -34,6 +34,8 @@ Random noise forces the encoder to learn a robust mapping from input to the late
 The DAE loss acts as a regularizer since even an overparameterized model cannot simply learn a 1-to-1 mapping of input to output.
 
 # Demo
+> Note: TensorflowJS does not always work on mobile. Use the latest version of Chrome or Firefox on a desktop computer instead.
+
 {% include dae-demo-1.html %}
 Try it out! Traverse the latent space of a DAE with the sliders and see what the decoder outputs if the encoder had output these two variables.
 The inputs and outputs to this DAE were 32x32 so these results are pretty good for a 512x reduction in dimensionality.
