@@ -29,7 +29,7 @@ While $$C$$ is arbitrary, this post will consider Gaussian noise:
 
 $$C(x) = x + \epsilon \text{, where } \epsilon \sim \mathcal{N}(0, \, I)$$
 
-<p align="center"><img src="{{ '/assets/images/DAE/corrupt.gif' | relative_url }}" width="54%"></p>
+<p align="center"><img src="{{ '/assets/images/DAE/corrupt.gif' | relative_url }}"></p>
 
 Aside from the obvious denoising capabilities of the DAE, training using the DAE loss offers various other benefits. 
 Random noise forces the encoder to learn a robust mapping from input to the latent space.
