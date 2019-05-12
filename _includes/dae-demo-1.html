@@ -187,7 +187,7 @@ function dae_z2_predict(z1, z2) {
     var x1 = parseFloat(z1);
     var x2 = parseFloat(z2);
     var pred = model.predict(tf.tensor2d([[x1, x2]]));
-    pred = tf.mul(tf.add(pred.tanh(), 1), 0.5).reshape([32,32]);
+    pred = normalize2(pred).reshape([32,32]);
     tf.browser.toPixels(pred, canvasDec);
 }
 
@@ -206,6 +206,11 @@ function normalize(im) {
                 .clipByValue(0, 1);
 }
 
+function normalize2(im) {
+    var tmp = im.clone();
+    return tf.mul(tf.add(tmp.tanh(), 1), 0.5)
+             .clipByValue(0, 1);
+}
 
 
 /*  
@@ -217,8 +222,7 @@ function normalize(im) {
 function dae_predict(im) {
     var tmp = im.clone();
     var pred = model2.predict(tmp.reshape([1, 32, 32, 1]));
-    var out = pred.mul(std).add(mean);
-    var norm = normalize(out);
+    var norm = normalize2(pred);
     tf.browser.toPixels(norm.reshape([32,32]), canvas2);
 }
 

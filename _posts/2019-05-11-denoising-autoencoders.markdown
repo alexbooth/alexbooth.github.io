@@ -8,6 +8,8 @@ author: Alexander Booth
 
 <p align="center"><img src="{{ '/assets/images/DAE/autoencoder.png' | relative_url }}" width="54%"></p>
 
+<!-- Edit v1.03 -->
+
 The denoising autoencoder (DAE) is a natural extension of the traditional autoencoder. 
 In fact, an autoencoder can be made into a DAE with a simple modification of the loss function.
 
